@@ -1,17 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from '../images/1609008146652.jpg'
 import Footer from "./Footer";
-import { ChangeEvent,useState } from "react";
-import { credentials } from "../hooks/useAuthenticate";
+import { ChangeEvent,useEffect,useState } from "react";
+import useAuthenticate, { credentials } from "../hooks/useAuthenticate";
+import { IAuthenticated } from "../interface/template";
 
 const Signin = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [labelEmail, setLabelEmail] = useState('')
-    const [labelPassword, setLabelPassword] = useState('')
+    const navigate = useNavigate();
+    const [authenticated, setAuthenticated] = useState<IAuthenticated>({isAuthenticated:false});
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const [labelEmail, setLabelEmail] = useState<string>('')
+    const [labelPassword, setLabelPassword] = useState<string>('')
     const validateEmail = (email:string) => {
-        const emailRegex = /^[a-z0-9@]+$/
+        const emailRegex = /^[a-z0-9.@]+$/
         if(emailRegex.test(email)){
+            setLabelEmail('')
             return true;
         }else{
             setLabelEmail('Email should be in correct format(name@company.com)')
@@ -21,16 +25,31 @@ const Signin = () => {
     const validatePassword = (password:string) => {
         const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]{6,16}$/
         if(passwordRegex.test(password)){
+            setLabelPassword('')
             return true;
         }else{
-            setLabelPassword('password should contain atleast one number and one special character')
+            setLabelPassword('Password should contain atleast one number and one special character')
             return false;
         }
     }
-    const validateForm = (credential:credentials) => {
-        const check = validateEmail(credential.email) && validatePassword(credential.password)
-        console.log(check)
+    const validateForm = async (credential:credentials) => {
+        const checkEmail = validateEmail(credential.email)
+        const checkPassword = validatePassword(credential.password)
+        if(checkEmail && checkPassword){
+            const getAuthInfo = await useAuthenticate(credential);
+            if(getAuthInfo){
+                setAuthenticated({isAuthenticated:true,username:'Aditya'});
+            }
+
+        }
     }
+    useEffect(()=>{
+        console.log(authenticated)
+        if(authenticated.isAuthenticated){
+            //redirect homepage
+            navigate("/")
+        }
+    },[authenticated])
     return(
         <>
             <section className="bg-gray-50 dark:bg-gray-200">
@@ -51,7 +70,7 @@ const Signin = () => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 />
-                                <label>{labelEmail}</label>
+                                <label className="text-gray-200 text-sm">{labelEmail}</label>
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
@@ -59,7 +78,7 @@ const Signin = () => {
                                 value={password}
                                 onChange={(e:ChangeEvent<HTMLInputElement>)=>setPassword(e.target.value)}
                                 />
-                                <label>{labelPassword}</label>
+                                <label className="text-gray-200 text-sm">{labelPassword}</label>
                             </div>
                             <div className="flex items-center justify-between">
                                 <div className="flex items-start">

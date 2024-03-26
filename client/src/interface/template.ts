@@ -12,3 +12,10 @@ export type IAuthContextType = {
 export type AuthContextProviderProps = {
     children: React.ReactNode,
 }
+export type IAuthenticated = {
+    isAuthenticated: boolean,
+    token?:string,
+    sessionEndTime?:Date,
+    username?:string
+    
+}

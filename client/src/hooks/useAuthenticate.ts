@@ -6,7 +6,7 @@ export type credentials = {
 }
 
 const useAuthenticate = async (credentials:credentials) => {
-    return fetch(`${apiHost}login`,{
+    return fetch(`${apiHost}/signin`,{
         method:'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -15,6 +15,7 @@ const useAuthenticate = async (credentials:credentials) => {
     })
     .then((res) => res.json())
     .then((data) => data)
+    .catch((err) => err)
 }
 
 
