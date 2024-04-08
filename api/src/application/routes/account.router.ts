@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { createUser, getUsersList } from "../controllers/user.controller";
+//const { validateApi } = require('../middlewares/apiAuthorization')
 const express = require('express')
 
 const router: Router = express.Router()

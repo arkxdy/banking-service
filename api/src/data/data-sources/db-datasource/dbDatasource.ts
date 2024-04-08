@@ -1,30 +1,22 @@
-import { injectable } from 'inversify'
-
-export interface IDBDatasource {
-    connectDb(): Promise<Boolean>
-}
-
-//@injectable()
-export class MongodbDatasourceImpl implements IDBDatasource {
-    connectDb(): Promise<Boolean> {
-        const isConnected = new Promise<Boolean>(async (resolve, reject) => {
-            try{
-                const url:string = "" //config.Mongodb_url
-                const connected = await this.connect(url)
-                if(connected){
-                    console.log('Database connected successfully.')
-                    resolve(true)
-                } else{
-                    resolve(false)
-                }
-            } catch (err) {
-                console.log('DB connection error:', err)
-                reject(false)
-            }
-        })
-        return isConnected
-    }
-    connect(url: string) {
-        return true;
-    }
-}
+import { Pool } from "pg";
+// import { IPostgreConn } from "../../../core/types";
+// require('dotenv').config();
+// const postgresConnDetails:IPostgreConn = {
+//     user: process.env.PG_USER??'postgres',
+//     host: process.env.PG_HOST??'localhost',
+//     password: process.env.PG_PASSWORD??"Adi@9661",
+//     database: process.env.PG_DATABASE??"bank-service",
+//     port: parseInt(process.env.PG_PORT!==undefined ? process.env.PG_PORT : '5432')
+// }
+export const pool:Pool = new Pool({
+    // user: postgresConnDetails.user,
+    // host: postgresConnDetails.host,
+    // password: postgresConnDetails.password,
+    // database: postgresConnDetails.database,
+    // port: postgresConnDetails.port,
+    user:'postgres',
+    host:'localhost',
+    database:'bank-service',
+    password:'Adi@9661',
+    port: 5432
+})
