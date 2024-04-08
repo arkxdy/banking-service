@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAuthContext } from "../context/authContext";
-import { IAuth } from "../interface/template";
+import { IAuth } from "../utils/types";
 
 const About = () => {
     const newAuthState:IAuth = {

@@ -16,6 +16,10 @@ export type IAuthenticated = {
     isAuthenticated: boolean,
     token?:string,
     sessionEndTime?:Date,
-    username?:string
-    
+    username?:string,
+    email?:string
+}
+export type IUser = {
+    username:string,
+    token:string
 }

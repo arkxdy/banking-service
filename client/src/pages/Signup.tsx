@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import { credentials } from "../hooks/useAuthenticate";
 import useRegistration from "../hooks/useRegisterUser";
-import { IAuthenticated } from "../interface/template";
+import { IAuthenticated } from "../utils/types";
 
 const Signup = () => {
     const navigate = useNavigate();

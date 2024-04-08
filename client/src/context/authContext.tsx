@@ -1,5 +1,5 @@
 import { createContext, useContext, useRef, useState } from "react";
-import {AuthContextProviderProps, IAuth, IAuthContextType} from "../interface/template";
+import {AuthContextProviderProps, IAuth, IAuthContextType} from "../utils/types";
 export const authInitialState: IAuth = {
     isAuthenticated:false,
     loginType:'anonymous',

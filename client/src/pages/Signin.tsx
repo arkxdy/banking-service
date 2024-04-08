@@ -3,7 +3,7 @@ import logo from '../images/1609008146652.jpg'
 import Footer from "./Footer";
 import { ChangeEvent,useEffect,useState } from "react";
 import useAuthenticate, { credentials } from "../hooks/useAuthenticate";
-import { IAuthenticated } from "../interface/template";
+import { IAuthenticated } from "../utils/types";
 
 const Signin = () => {
     const navigate = useNavigate();
@@ -47,7 +47,7 @@ const Signin = () => {
         console.log(authenticated)
         if(authenticated.isAuthenticated){
             //redirect homepage
-            navigate("/")
+            navigate("/account")
         }
     },[authenticated])
     return(
