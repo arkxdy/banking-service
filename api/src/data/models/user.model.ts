@@ -1,4 +1,4 @@
-export class User{
+class User{
     #user_id:number;
     #username:string;
     #password:string;
@@ -50,7 +50,10 @@ export function getUserListData (list:Array<IUser>):Array<IGetUser> {
         return (user.getUserData())
     })
 }
-
+export function getUserData (item: IUser) {
+    const user = new User(item)
+    return user.getUserData()
+}
 export interface IUser {
     user_id:number,
     username:string,

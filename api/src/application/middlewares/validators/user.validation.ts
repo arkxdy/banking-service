@@ -9,14 +9,14 @@ export function validateUserList (res: QueryResult) {
 }
 function validateUserData ( res:IUser ): boolean{
     if(
-        res.user_id !== undefined &&
-        res.username !== undefined &&
-        res.password !== undefined &&
-        res.full_name !== undefined &&
-        res.email !== undefined &&
-        res.phone_number !== undefined &&
-        res.date_of_birth !== undefined &&
-        res.address !== undefined
+        res.user_id !== null &&
+        res.username !== null &&
+        res.password !== null &&
+        res.full_name !== null &&
+        res.email !== null &&
+        res.phone_number !== null &&
+        res.date_of_birth !== null &&
+        res.address !== null
     ){
         return true
     }

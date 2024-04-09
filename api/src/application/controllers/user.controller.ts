@@ -1,11 +1,11 @@
 import {Request, Response} from 'express';
 import { QueryResult } from 'pg';
 import { pool } from '../../data/data-sources/db-datasource/dbDatasource';
-import { IUser, getUserListData } from '../../data/models/user.model';
+import { IUser, getUserData, getUserListData } from '../../data/models/user.model';
 import { validateUserList } from '../middlewares/validators/user.validation';
 
 
-export const getUsersList = async (_req: Request, res: Response):Promise<Response> => {
+export const getUserList = async (_req: Request, res: Response):Promise<Response> => {
     try{
         let response: QueryResult;
         let query: string = 'select * from users';
@@ -42,6 +42,34 @@ export const getUsersList = async (_req: Request, res: Response):Promise<Respons
         })
     }
     
+}
+
+export const getUserById = async (req: Request, res: Response):Promise<Response> => {
+    try{
+        const userId = req.params.id;
+        if(!Number.isNaN(parseInt(userId))){
+            const response = await pool.query('select * from users where user_id = ' + parseInt(userId))
+            if(response.rowCount !== 0){
+                return res.status(200).json(getUserData(response.rows[0]))
+            }else{
+                return res.status(404).json({
+                    success: true,
+                    message: 'User not found'
+                })
+            }
+        }else{
+            return res.status(400).json({
+                success: false,
+                message: 'Id should be number'
+            })
+        }
+    } catch(error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Cannot get user',
+            error: error
+        })
+    }
 }
 
 export const createUser = async (req:Request, res:Response):Promise<Response> => {

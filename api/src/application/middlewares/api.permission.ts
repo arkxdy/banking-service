@@ -11,18 +11,17 @@ const roles:any = {
   };
   exports.roles = roles;
 
-  exports.validateApi = ( role:string = 'none') => {
-    console.log('inside validateApi',role)
-    return function (_req: Request, res: Response, next: NextFunction) {
-        const currentUserRole:string = "admin"
+  exports.checkPermission = ( role:string = 'none') => {
+    return function (req: Request, res: Response, next: NextFunction) {
+        const currentUserRole:string = req.body.role ?? 'admin'
         if(roles[currentUserRole]?.includes(role)){
-            console.log('calling next')
             next();
         }else{
             console.log('calling err')
             return res.status(403).json({
                 success: false,
-                message: 'Access denied'
+                message: 'Access denied',
+                req: req.body
             })
         }
     }

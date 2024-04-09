@@ -1,14 +1,15 @@
 import { Router } from "express";
-import { createUser, getUsersList } from "../controllers/user.controller";
+import { createUser, getUserById, getUserList } from "../controllers/user.controller";
+const { checkPermission } =  require('../middlewares/api.permission')
+const errorHandlers = require('../middlewares/error.handler')
 const express = require('express')
 
 const router: Router = express.Router()
 
-//const { catchErros } = require('../middlewares/error.handler')
-console.log('admin router')
-router.route('/list').get(getUsersList)
-router.route('/:id').get(getUsersList)
-router.route('/create').post(createUser);
-router.route('/update').put();
-router.route('/delete').delete();
+router.route('/user/list').get(checkPermission('read'), errorHandlers.catchErros(getUserList))
+router.route('/user/:id')
+    .get(getUserById)
+    .post(createUser)
+    .delete()
+    .put()
 module.exports = router;
