@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser')
 
 const userRouter = require('./application/routes/user.router') 
 const accountRouter = require('./application/routes/account.router')
+const transactionRouter = require('./application/routes/transaction.router')
 const errorHandlers = require('./application/middlewares/error.handler')
 
 const app:Application = express();
@@ -26,6 +27,7 @@ app.use(compression())
 
 app.use('/api', userRouter)
 app.use('/api', accountRouter)
+app.use('/api', transactionRouter)
 app.use(errorHandlers.notFound)
 
 module.exports = app;
