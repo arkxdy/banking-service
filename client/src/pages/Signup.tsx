@@ -4,11 +4,11 @@ import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import { credentials } from "../hooks/useAuthenticate";
 import useRegistration from "../hooks/useRegisterUser";
-import { IAuthenticated } from "../utils/types";
+import { IAuth } from "../utils/types";
 
 const Signup = () => {
     const navigate = useNavigate();
-    const [authenticated, setAuthenticated] = useState<IAuthenticated>({isAuthenticated:false});
+    const [authenticated, setAuthenticated] = useState<IAuth>({isAuthenticated:false});
     const [email,setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
@@ -62,9 +62,9 @@ const Signup = () => {
     useEffect(()=>{
         console.log(authenticated)
         if(authenticated.isAuthenticated){
-            navigate("/")
+            navigate("/account")
         }
-    },[authenticated])
+    },[])
 
     return (
         <>

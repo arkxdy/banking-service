@@ -1,10 +1,8 @@
 import { createContext, useContext, useRef, useState } from "react";
-import {AuthContextProviderProps, IAuth, IAuthContextType} from "../utils/types";
+import {ProviderProps, IAuth, IAuthContextType} from "../utils/types";
+import useLocalStorage from "use-local-storage";
 export const authInitialState: IAuth = {
     isAuthenticated:false,
-    loginType:'anonymous',
-    loginId:'',
-    email:'default',
 }
 
 const AuthContextType:IAuthContextType = {
@@ -14,11 +12,6 @@ const AuthContextType:IAuthContextType = {
 
 const AuthContext = createContext<AuthContextType| undefined>(undefined);
 
-const newAuthState:IAuth = {
-    isAuthenticated:true,
-    email:'Nigger',
-    loginId:'allah',
-}
 interface AuthContextType {
     authState: IAuth;
     login: (newAuthState:IAuth) => void;
@@ -32,8 +25,8 @@ export const useAuthContext = () => {
     }
     return context;
 }
-export const AuthProvider = ({children}:AuthContextProviderProps) => {
-    const [authState, setAuthState] = useState<IAuth>(authInitialState);
+export const AuthProvider = ({children}:ProviderProps) => {
+    const [authState, setAuthState] = useLocalStorage<IAuth>('auth',authInitialState);
     const authStateRef = useRef<IAuth>();
     authStateRef.current = authState;
     const login = (newAuthState:IAuth) => {

@@ -1,13 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../images/1609008146652.jpg'
 import Footer from "./Footer";
-import { ChangeEvent,useEffect,useState } from "react";
+import { ChangeEvent,useContext,useEffect,useState } from "react";
 import useAuthenticate, { credentials } from "../hooks/useAuthenticate";
-import { IAuthenticated } from "../utils/types";
+import { IAuth } from "../utils/types";
+import { useAuthContext } from "../context/authContext";
 
 const Signin = () => {
     const navigate = useNavigate();
-    const [authenticated, setAuthenticated] = useState<IAuthenticated>({isAuthenticated:false});
+    const authContext = useAuthContext();
+    console.log('login',authContext.authState)
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [labelEmail, setLabelEmail] = useState<string>('')
@@ -36,20 +38,27 @@ const Signin = () => {
         const checkEmail = validateEmail(credential.email)
         const checkPassword = validatePassword(credential.password)
         if(checkEmail && checkPassword){
-            const getAuthInfo = await useAuthenticate(credential);
-            if(getAuthInfo){
-                setAuthenticated({isAuthenticated:true,username:'Aditya'});
+            const {token} = await useAuthenticate(credential);
+            
+            if(token){
+                const loginDetails:IAuth = {
+                    isAuthenticated: true,
+                    token: token,
+                    sessionEndTime: new Date
+                }
+                authContext.login(loginDetails)
+                navigate('/account')
             }
 
         }
     }
     useEffect(()=>{
-        console.log(authenticated)
-        if(authenticated.isAuthenticated){
+        console.log('useEffect',authContext.authState)
+        if(authContext.authState.isAuthenticated){
             //redirect homepage
             navigate("/account")
         }
-    },[authenticated])
+    },[])
     return(
         <>
             <section className="bg-gray-50 dark:bg-gray-200">

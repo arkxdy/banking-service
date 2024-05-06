@@ -1,0 +1,11 @@
+.rr{
+    list-style: none;
+    padding: 0px;
+}
+.rr:before{
+    
+    content: '\f061';
+}
+.pass{
+    display: flex;
+}

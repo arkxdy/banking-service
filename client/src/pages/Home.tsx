@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
+import { useAuthContext } from "../context/authContext";
 
 const Home = () => {
-    
-    
+    const {isAuthenticated} = useAuthContext().authState
+    console.log(isAuthenticated)
+    if(isAuthenticated) return <Navigate to='/account' replace></Navigate>
     return(
         <>
             <Header isAuth={true} activeTab="Home"></Header>
