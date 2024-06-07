@@ -1,4 +1,4 @@
-class User{
+export class User{
     #user_id:number;
     #username:string;
     #password:string;
@@ -9,7 +9,9 @@ class User{
     #address:string;
 
     constructor (userData:IUser){
-        this.#user_id = userData.user_id,
+        if(userData.user_id){
+            this.#user_id = userData.user_id
+        }
         this.#username = userData.username,
         this.#password = userData.password,
         this.#full_name = userData.full_name,
@@ -18,10 +20,12 @@ class User{
         this.#date_of_birth = userData.date_of_birth,
         this.#address = userData.address
     }
-
+    validateUserData(): boolean {
+        return true;
+    }
     getUserData():IGetUser{
         return {
-            user_id: this.#user_id,
+            username: this.#username,
             full_name: this.#full_name,
             email: this.#email,
             phone_number: this.#phone_number,
@@ -55,7 +59,7 @@ export function getUserData (item: IUser) {
     return user.getUserData()
 }
 export interface IUser {
-    user_id:number,
+    user_id?:number,
     username:string,
     password:string,
     full_name:string,
@@ -66,7 +70,7 @@ export interface IUser {
 }
 
 export interface IGetUser {
-    user_id:number,
+    username:string,
     full_name:string,
     email:string,
     phone_number:string,

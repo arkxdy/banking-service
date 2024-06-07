@@ -19,7 +19,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     })
     try{
         const decoded = jwt.verify(token, jwtSecretKey)
-        req.body.userId = decoded.userId
+        req.body.username = decoded.username
         next()
     } catch(error){
         return res.status(401).json({error: 'Invalid toekn'})

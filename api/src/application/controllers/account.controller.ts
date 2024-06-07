@@ -10,7 +10,11 @@ const getAccountDetail = async (req:Request, res: Response):Promise<Response> =>
         if(validate(accountNumber)){
             const response: QueryResult = await pool.query(`select * from accounts where account_id = ${accountNumber} limit 1`)
             if(response.rowCount===1){
-                return res.status(200).json(response.rows);
+                return res.status(200).json({
+                    success: true,
+                    username: req.body.username,
+                    data: response.rows
+                });
             }
             return res.status(404).json({
                 success: true,
