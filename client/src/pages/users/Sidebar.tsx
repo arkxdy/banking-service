@@ -18,7 +18,7 @@ const Sidebar = () => {
                 </button>
                 <ul className="mt-20 space-y-2 font-medium">
                     {sidebarItems.map(item => (
-                        <li>
+                        <li key={item.name}>
                             <Link to={item.to} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                 <img className='bg-gray-100 p-2' src={item.icon}></img>
                                 <span className="ms-3">{item.name}</span>

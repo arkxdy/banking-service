@@ -8,7 +8,7 @@ const FrequentPayments = () => {
             </div>
             <div className="flex flex-row justify-between">
                 {ar.map(item => (
-                    <Box amount={item} name="Netflix"></Box>
+                    <Box key={item.toString()} amount={item} name="Netflix"></Box>
                 ))}
             </div>
         </div>

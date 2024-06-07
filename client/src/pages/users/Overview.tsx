@@ -3,6 +3,7 @@ import { useState } from "react";
 const Overview = () => {
     const [showModal, setShowModal] = useState<string>('')
     const handleClose = () => {
+        console.log('FF')
         setShowModal('')
     }
     return(
@@ -41,7 +42,7 @@ const SearchModal = (props:{closePopup:() => void}) => {
             <div className="absolute flex">
                 <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
                 <input
@@ -60,8 +61,41 @@ const SearchModal = (props:{closePopup:() => void}) => {
 }
 
 const ProfileModal = (props:{closePopup:() => void}) => {
+    const logout = () => {
+        console.log('logout')
+    }
     return(
         <>
+        <div className="absolute flex">
+            <div className="inset-y-0 start-0 flex justify-center items-end text-center min-h-screen">         
+                <div className= "inline-block text-left bg-black rounded-lg overflow-hidden align-bottom transition-all transform shadow-2xl sm:my-8 sm:align-middle sm:max-w-xl sm:w-full">
+                    <span className="cursor-pointer text-white float-end text-right" onClick={props.closePopup}>
+                        <svg className="fill-current h-6 w-6 text-white-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                    </span> 
+                    <div className="items-center w-full mr-auto ml-auto relative max-w-7xl md:px-12 lg:px-24">
+                        <div className="grid grid-cols-1">
+                            <div className="mr-auto ml-auto bg-black max-w-lg">
+                              
+                                <div className="flex flex-col items-center pt-6 pr-6 pb-6 pl-6">
+                                    <img
+                                        src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500" className="flex-shrink-0 object-cover object-center btn- flex w-16 h-16 mr-auto -mb-8 ml-auto rounded-full shadow-xl">
+                                    </img>
+                                    <p className="mt-8 text-2xl font-semibold leading-none text-white tracking-tighter lg:text-3xl">Mark
+                                        Xenon
+                                    </p>
+                                    <div className="w-full mt-6">
+                                        <a onClick={logout} className="cursor-pointer flex text-center items-center justify-center w-full pt-4 pr-10 pb-4 pl-10 text-base
+                                            font-medium text-white bg-gray-400 rounded-xl transition duration-500 ease-in-out transform
+                                            hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Logout
+                                            out</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         </>
     )
 }

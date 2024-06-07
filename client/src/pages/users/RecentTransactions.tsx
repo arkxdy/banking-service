@@ -14,8 +14,8 @@ const RecentTransactions = () => {
         </div> 
         <div className='grid grid-cols-2 gap-4'>
             {tmep.map((item,index)=>(
-                <>
-                    <div key={index} className="flex flex-row">
+                <div key={index} >
+                    <div className="flex flex-row">
                         <img className="w-5 mr-2" src={iconATM}></img>
                         <div>
                             <div className='font-semibold'>{item.name}</div>
@@ -25,7 +25,7 @@ const RecentTransactions = () => {
                     <div className='ml-12 w-20'>
                         <div className='font-semibold'>{item.debit ? '+$ ': '-$ '}{item.balance}</div>
                     </div>
-                </>
+                </div>
                 
             ))}
             <div>
