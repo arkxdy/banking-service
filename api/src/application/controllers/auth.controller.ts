@@ -55,8 +55,7 @@ const loginUser = async(req: Request, res: Response): Promise<Response> => {
                 pass: hashedPassword
             },
             token: token
-            
-        })
+        });
     }catch(error){
         return res.status(500).json({
             success: false,

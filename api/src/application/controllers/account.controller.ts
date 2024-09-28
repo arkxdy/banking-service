@@ -13,7 +13,7 @@ const getAccountDetail = async (req:Request, res: Response):Promise<Response> =>
                 return res.status(200).json({
                     success: true,
                     username: req.body.username,
-                    data: response.rows
+                    data: response.rows[0]
                 });
             }
             return res.status(404).json({
